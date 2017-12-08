@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登录注册</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+	<link href="css/style.css" rel='stylesheet' type='text/css' />
+	<script src="js/jquery-3.1.1.min.js"></script>
+
+
+	<script src="js/denglu.js"></script>
+
+</head>
+<body>
+<script>
+	$(document).ready(function(c) {
+		$('.close').on('click', function(c){
+			$('.login-form').fadeOut('slow', function(c){
+				$('.login-form').remove();
+			});
+		});
+	});
+</script>
+<!--SIGN UP-->
+<h1> Login Form</h1>
+<div class="login-form">
+	<div class="close"> </div>
+	<div class="head-info">
+		<label class="lbl-1"> </label>
+		<label class="lbl-2"> </label>
+
+	</div>
+	<div class="clear"> </div>
+	<div class="avtar">
+		<img src="images/avtar.png" />
+	</div>
+	<div class="content">
+		<ul class="subnav">
+			<li>
+				<form>
+					<input type="text" id="user" class="text"  placeholder="请输入用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入用户名';}" >
+					<div class="key">
+						<input type="password"  id="pass" placeholder="请输入密码" onfocus="this.value = '';" onblur="if (this.value == '') {}">
+					</div>
+				</form>
+				<div class="signin">
+					<input type="submit" id="btn" value="登录" >
+				</div>
+			</li>
+			<li>
+				<form>
+					<input type="text" class="text"  id="user1" placeholder="请输入用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入用户名';}" >
+					<div class="key">
+						<input type="password" id="pass1"  placeholder="请输入密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '请输入密码';}">
+					</div>
+				</form>
+				<div class="signin">
+					<input type="submit" id="btn1" value="注册" >
+				</div>
+
+			</li>
+		</ul>
+
+	</div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+	btn.onclick = function(){
+		ajax({
+			url:'http://localhost:8000/user/login',
+			type:'post',
+			data:{
+				user:user.value,
+				pass:pass.value
+			},
+			success:function(da){
+				console.log(da)
+//			if(user.value==''){
+//				alert('请输入用户名')
+//			}
+//			if( pass.value){
+//				console.log('登陆成功')
+//			}
+			},
+			error:function(){
+
+			}
+		})
+	}
+	btn1.onclick = function(){
+		ajax({
+			url:'http://localhost:8000/user/login2',
+			type:'post',
+			data:{
+				user:user.value,
+				pass:pass.value
+			},
+			success:function(da){
+				console.log(da)
+
+			},
+			error:function(){
+
+			}
+		})
+	}
+
+	function ajax(req){
+//	console.log(req.data)
+		if(window.XMLHttpRequest){
+			var ajax = new XMLHttpRequest()
+		}else{
+			var ajax = new ActiveXObject( "Microsoft.XMLHTTP" );
+		}
+		if(req.type == 'get'){
+			ajax.open('get',req.url+'?'+strdata(req.data),true)
+			ajax.send()
+		}else{
+			ajax.open('post',req.url,true)
+			ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+			ajax.send(strdata(req.data))
+		}
+		ajax.onreadystatechange = function(){
+			if(ajax.readyState == 4){
+				if(ajax.status>=200 && ajax.status<300 || ajax.status == 304){
+					req.success(ajax.responseText)
+//					console.log(ajax.responseText)
+				}else{
+					req.error(ajax.status)
+				}
+
+			}
+		}
+
+		function strdata(da){
+			var arr = []
+			for(var i in da){
+				arr.push(i+'='+da[i])
+			}
+			var strurl = arr.join('&')
+			return strurl
+		}
+	}
+</script>
+</html>
